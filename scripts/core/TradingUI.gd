@@ -5,8 +5,6 @@ extends Control
 @onready var buy_button = $VBoxContainer/HBoxContainer/BuyButton
 @onready var sell_button = $VBoxContainer/HBoxContainer/SellButton
 
-@onready var sell_button = $VBoxContainer/HBoxContainer/SellButton
-
 var graph_ui: GraphUI
 var diversification_label: Label
 var selected_company: Company = null

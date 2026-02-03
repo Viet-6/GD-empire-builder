@@ -11,6 +11,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Empire Builder
+Core Framework Initialized
+(Check Console for Output)"
+
+[node name="GameUI" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="HBoxContainer" parent="GameUI"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="SaveButton" type="Button" parent="GameUI/TopBar"]
+layout_mode = 2
+text = "Save Game"
+
+[node name="LoadButton" type="Button" parent="GameUI/TopBar"]
+layout_mode = 2
+text = "Load Game"
+
 [node name="NewsLabel" type="Label" parent="GameUI/TopBar"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -50,29 +81,3 @@ autowrap_mode = 2
 
 [node name="Buttons" type="VBoxContainer" parent="GameUI/ChoicePanel/VBox"]
 layout_mode = 2
-
-[node name="GameUI" type="CanvasLayer" parent="."]
-
-[node name="TopBar" type="HBoxContainer" parent="GameUI"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 40.0
-grow_horizontal = 2
-
-[node name="SaveButton" type="Button" parent="GameUI/TopBar"]
-layout_mode = 2
-text = "Save Game"
-
-[node name="LoadButton" type="Button" parent="GameUI/TopBar"]
-layout_mode = 2
-text = "Load Game"
-
-[node name="NewsLabel" type="Label" parent="GameUI/TopBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "No News"
-horizontal_alignment = 2
-
-[node name="AdvanceTurnButton" type="Button" parent="GameUI/TopBar"]
-layout_mode = 2
-text = "Next Turn"

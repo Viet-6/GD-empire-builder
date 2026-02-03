@@ -31,7 +31,7 @@ var possible_events = [
 			{"text": "Bribe Officials (Valuation +10%)", "effect_type": SECTOR_BOOST, "val": 1.1}
 		]
 	}
-],
+	},
 	{
 		"headline": "Sports Season Cancelled due to Strike",
 		"sector_id": "sports",
