@@ -58,3 +58,18 @@ func sell_stock(company: Company, quantity: int) -> bool:
 	else:
 		print("Not enough shares to sell %s" % company.name)
 		return false
+
+func calculate_diversification_score() -> float:
+	var sectors_invested = []
+	for company_id in holdings.keys():
+		if holdings[company_id] > 0:
+			# Find company to get sector (inefficient search but fine for now)
+			for sector in GameManager.sectors:
+				for company in sector.companies:
+					if company.id == company_id:
+						if not sector.id in sectors_invested:
+							sectors_invested.append(sector.id)
+	
+	# Bonus: 0.05 per additional sector
+	var score = 1.0 + (max(0, sectors_invested.size() - 1) * 0.05)
+	return score
