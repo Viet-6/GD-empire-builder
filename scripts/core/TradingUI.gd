@@ -2,6 +2,8 @@ extends Control
 
 @onready var company_list = $VBoxContainer/CompanyList
 @onready var funds_label = $VBoxContainer/FundsLabel
+@onready var buy_button = $VBoxContainer/HBoxContainer/BuyButton
+@onready var sell_button = $VBoxContainer/HBoxContainer/SellButton
 
 var selected_company: Company = null
 
@@ -9,6 +11,9 @@ func _ready():
 	# Connect to signals
 	GameManager.player_portfolio.funds_changed.connect(_on_funds_changed)
 	_on_funds_changed(GameManager.player_portfolio.cash)
+	
+	buy_button.pressed.connect(_on_buy_pressed)
+	sell_button.pressed.connect(_on_sell_pressed)
 	
 	_refresh_company_list()
 
