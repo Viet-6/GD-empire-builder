@@ -10,6 +10,7 @@ signal stats_changed
 @export var funds: float = 50000.0
 @export var revenue_last_year: float = 0.0
 @export var growth_rate: float = 0.05 # 5% growth
+@export var dividend_yield: float = 0.02 # 2% annual yield paid quarterly
 
 # Market sentiment modifier (0.0 to 1.0+)
 var sentiment_modifier: float = 1.0

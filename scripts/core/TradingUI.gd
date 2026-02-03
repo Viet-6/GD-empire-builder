@@ -5,6 +5,9 @@ extends Control
 @onready var buy_button = $VBoxContainer/HBoxContainer/BuyButton
 @onready var sell_button = $VBoxContainer/HBoxContainer/SellButton
 
+@onready var sell_button = $VBoxContainer/HBoxContainer/SellButton
+
+var graph_ui: GraphUI
 var diversification_label: Label
 var selected_company: Company = null
 
@@ -17,6 +20,13 @@ func _ready():
 	diversification_label = Label.new()
 	$VBoxContainer.add_child(diversification_label)
 	$VBoxContainer.move_child(diversification_label, 2) # Place below Funds
+	
+	# Create GraphUI
+	graph_ui = GraphUI.new()
+	graph_ui.custom_minimum_size = Vector2(0, 100) # 100px height
+	graph_ui.size_flags_horizontal = SIZE_EXPAND_FILL
+	$VBoxContainer.add_child(graph_ui)
+	$VBoxContainer.move_child(graph_ui, 3)
 	
 	buy_button.pressed.connect(_on_buy_pressed)
 	sell_button.pressed.connect(_on_sell_pressed)
@@ -48,6 +58,11 @@ func _refresh_company_list():
 func _on_company_selected(company: Company):
 	selected_company = company
 	print("Selected: %s" % company.name)
+	
+	# Update Graph
+	if GameManager.market:
+		var history = GameManager.market.get_history(company.id)
+		graph_ui.update_data(history)
 
 func _on_buy_pressed():
 	if selected_company:

@@ -6,6 +6,7 @@ var turn_manager: TurnManager
 var market: Market
 var news_manager: NewsManager
 var player_portfolio: Portfolio
+var ai_investor: AIInvestor
 var sectors: Array[Sector] = []
 
 func _ready():
@@ -21,6 +22,9 @@ func _ready():
 	
 	player_portfolio = Portfolio.new()
 	add_child(player_portfolio)
+	
+	ai_investor = AIInvestor.new()
+	add_child(ai_investor)
 	
 	# Connect signals
 	turn_manager.turn_changed.connect(_on_turn_changed)
@@ -72,6 +76,9 @@ func _on_turn_changed(turn: int):
 	
 	# Process News
 	news_manager.check_for_news(turn)
+	
+	# Process AI
+	ai_investor.process_turn(global_economic_factor)
 	
 	for sector in sectors:
 		sector.process_sector_turn(global_economic_factor)

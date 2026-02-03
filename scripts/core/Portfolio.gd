@@ -46,14 +46,18 @@ func sell_stock(company: Company, quantity: int) -> bool:
 	var current_qty = holdings.get(company.id, 0)
 	if current_qty >= quantity:
 		var price_per_share = company.valuation / 1000000.0
-		var total_value = price_per_share * quantity
+		var gross_value = price_per_share * quantity
 		
-		cash += total_value
+		# Capital Gains Tax (Simplified: 15% of total scale, ideally should be on profit)
+		var tax = gross_value * 0.15 
+		var net_value = gross_value - tax
+		
+		cash += net_value
 		holdings[company.id] = current_qty - quantity
 		
 		emit_signal("funds_changed", cash)
 		emit_signal("holdings_changed", company.id, holdings[company.id])
-		print("Sold %d shares of %s at %.2f. Cash: %.2f" % [quantity, company.name, price_per_share, cash])
+		print("Sold %d shares of %s. Gross: %.2f, Tax: %.2f, Net: %.2f" % [quantity, company.name, gross_value, tax, net_value])
 		return true
 	else:
 		print("Not enough shares to sell %s" % company.name)
@@ -73,3 +77,9 @@ func calculate_diversification_score() -> float:
 	# Bonus: 0.05 per additional sector
 	var score = 1.0 + (max(0, sectors_invested.size() - 1) * 0.05)
 	return score
+
+func receive_dividends(amount: float):
+	if amount > 0:
+		cash += amount
+		emit_signal("funds_changed", cash)
+		print("Received Dividends: $%.2f" % amount)
